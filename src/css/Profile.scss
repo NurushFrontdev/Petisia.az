@@ -1,0 +1,137 @@
+$bg: #fafafa;
+$card: #ffffff;
+$text: #222;
+$muted: #6b7280;
+$line: #e5e7eb;
+$primary: #6b5cff;
+$primary-600: #5a4cf0;
+$radius: 18px;
+
+.profile-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 56px 20px;
+  background: $bg;
+  font-family: "Inter", sans-serif;
+  color: $text;
+}
+
+.profile-card {
+  background: $card;
+  border: 1px solid $line;
+  border-radius: $radius;
+  box-shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+  padding: 40px;
+  h1 {
+    text-align: center;
+    margin-bottom: 28px;
+    font-size: 34px;
+  }
+}
+
+.avatar-section {
+  text-align: center;
+  .avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 104px;
+    height: 104px;
+    margin: 0 auto 16px;
+    background: #efeff6;
+    border-radius: 50%;
+    font-size: 44px;
+  }
+  .muted {
+    color: $muted;
+    font-size: 14px;
+    margin-top: 6px;
+  }
+}
+
+.profile-form {
+  margin-top: 26px;
+
+  .grid {
+    display: grid;
+    gap: 18px;
+
+    &.two {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    label {
+      font-weight: 600;
+    }
+
+    input,
+    textarea {
+      padding: 14px;
+      border: 1px solid $line;
+      border-radius: 12px;
+      font-size: 16px;
+      outline: none;
+
+      &:focus {
+        border-color: $primary;
+        box-shadow: 0 0 0 4px rgba(107, 92, 255, 0.15);
+      }
+    }
+
+    textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+  }
+
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+  }
+}
+
+.btn {
+  border: 1px solid $line;
+  background: #f8f8ff;
+  border-radius: 12px;
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &.primary {
+    background: $primary;
+    border-color: $primary;
+    color: #fff;
+
+    &:hover {
+      background: $primary-600;
+    }
+  }
+}
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 16px;
+  background: #efeff6;
+  border-radius: 50%;
+  font-size: 44px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}

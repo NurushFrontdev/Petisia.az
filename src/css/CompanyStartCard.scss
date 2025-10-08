@@ -1,0 +1,88 @@
+.petition-card {
+  margin: 20px auto;
+
+  .petition-category {
+    padding: 10px 15px;
+    font-weight: 600;
+    font-size: 15px;
+    border-bottom: 1px solid #ccc;
+    background: #f9f9f9;
+  }
+
+  .petition-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+  }
+
+  .petition-left {
+    flex: 2;
+    padding: 15px;
+
+    .petition-title {
+      margin-bottom: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #222;
+    }
+
+    .petition-text {
+      color: #555;
+      line-height: 1.4;
+    }
+  }
+
+  .petition-right {
+    flex: 1;
+    min-width: 220px;
+    background: #e0e0e0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 100%;
+      background: #ccc;
+    }
+  }
+
+  .petition-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding: 10px 15px;
+
+    .petition-author {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 600;
+
+      .author-avatar {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        border: 1px solid #444;
+      }
+    }
+
+    .petition-supporters {
+      font-size: 14px;
+      color: #666;
+    }
+  }
+}
+
+.action-buttons {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}

@@ -1,0 +1,177 @@
+// Detail.jsx
+import { useState, useEffect } from "react";
+import { useParams, useLocation, Link } from "react-router-dom";
+import "../css/CardDedals.scss";
+
+function Detail() {
+  const { id } = useParams();
+  const { state } = useLocation();
+  const { image, title, description, author, authorPhoto } = state || {};
+
+  const [supporters, setSupporters] = useState(Number(state?.supporters) || 0);
+  const [formData, setFormData] = useState({
+    ad: "",
+    soyad: "",
+    gmail: "",
+  });
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem("googleUser");
+    if (storedUser) {
+      const parsed = JSON.parse(storedUser);
+      setFormData({
+        ad: parsed.given_name || "",
+        soyad: parsed.family_name || "",
+        gmail: parsed.email || "",
+      });
+    }
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSupport = () => {
+    setSupporters((prev) => prev + 1);
+
+    const storedUser = localStorage.getItem("googleUser");
+    if (!storedUser) {
+      alert("İmzalamaq üçün əvvəlcə daxil olun!");
+      return;
+    }
+
+    const user = JSON.parse(storedUser);
+    const userId = user.sub;
+    const signedKey = `signedCampaigns_${userId}`;
+
+    const signedCampaigns = JSON.parse(localStorage.getItem(signedKey)) || [];
+
+    const newCampaign = {
+      id,
+      image,
+      title,
+      description,
+      author,
+      authorPhoto,
+      supporters: supporters + 1,
+    };
+
+    const exists = signedCampaigns.find((c) => c.id === id);
+    if (!exists) {
+      signedCampaigns.push(newCampaign);
+      localStorage.setItem(signedKey, JSON.stringify(signedCampaigns));
+    }
+  };
+
+  return (
+    <div className="detail-container">
+      <div className="detail-content">
+        <h1 className="detail-title">{title}</h1>
+        <img src={image} alt={title} className="detail-image" />
+        <p className="detail-text">{description}</p>
+        <div className="detail-author">
+          <div className="author-card">
+            <div className="author-left">
+              {authorPhoto && (
+                <Link
+                  to="/author-info"
+                  state={{
+                    first_name: author.split(" ")[0],
+                    last_name: author.split(" ")[1] || "",
+                    photo: authorPhoto,
+                    username: state?.authorEmail || "",
+                    about: state?.authorAbout || "",
+                    country: state?.authorCountry || "",
+                  }}
+                >
+                  <img
+                    src={authorPhoto}
+                    alt={author}
+                    className="author-photo"
+                  />
+                </Link>
+              )}
+            </div>
+
+            <div className="author-right">
+              <Link
+                to="/author-info"
+                state={{
+                  first_name: author.split(" ")[0],
+                  last_name: author.split(" ")[1] || "",
+                  photo: authorPhoto,
+                  username: state?.authorEmail || "",
+                  about: state?.authorAbout || "",
+                  country: state?.authorCountry || "",
+                }}
+                className="author-name"
+              >
+                {author}
+              </Link>
+              <p className="author-subtitle">Kampaniyanı başladan</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="detail-right">
+        <div className="support-box">
+          <h2 className="support-count">{supporters}</h2>
+          <p className="support-verify">✅ Doğrulanmış imza</p>
+          <p className="support-text">
+            Dəstəyin sayəsində kampaniyanın qazanmaq üçün bir şansı var. Hədəfə
+            çatmaq üçün {10000 - supporters} imza daha lazımdır. Yardım
+            edərsənmi?
+          </p>
+
+          <div className="support-inputs">
+            <input
+              type="text"
+              name="ad"
+              placeholder="Ad"
+              value={formData.ad}
+              onChange={handleChange}
+            />
+            <input
+              type="text"
+              name="soyad"
+              placeholder="Soyad"
+              value={formData.soyad}
+              onChange={handleChange}
+            />
+            <input
+              type="email"
+              name="gmail"
+              placeholder="Gmail"
+              value={formData.gmail}
+              onChange={handleChange}
+            />
+          </div>
+
+          <button className="support-btn" onClick={handleSupport}>
+            <Link
+              to="/pay-or-share"
+              state={{
+                id,
+                image,
+                title,
+                description,
+                author,
+                authorPhoto,
+                supporters: supporters + 1,
+                ad: formData.ad,
+                soyad: formData.soyad,
+              }}
+              style={{ color: "black", textDecoration: "none" }}
+            >
+              Kampanyanı imzala
+            </Link>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Detail;

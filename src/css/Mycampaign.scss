@@ -1,0 +1,215 @@
+.mycampaign {
+  min-height: 100vh;
+  background: #fff;
+  color: #111;
+  font-family: sans-serif;
+
+  &__container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  &__user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    background: #f5f5f5;
+
+    display: grid;
+    place-items: center;
+    font-size: 32px;
+    color: #666;
+  }
+
+  &__name {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  &__country {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+  }
+
+  &__edit-btn {
+    border: 1px solid #ccc;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #fff;
+    transition: 0.2s;
+
+    &:hover {
+      background: #f5f5f5;
+    }
+  }
+
+  &__tabs {
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 20px;
+  }
+
+  &__tab-btn {
+    position: relative;
+    padding: 6px 0;
+    color: #555;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+
+    &.is-active {
+      color: #000;
+      font-weight: 600;
+    }
+  }
+
+  &__underline {
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 3px;
+    width: 100%;
+    background: red;
+    border-radius: 2px;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  &__text {
+    color: #444;
+    font-size: 15px;
+  }
+
+  &__search-btn {
+    background: #e3342f;
+    border: none;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+
+    &:hover {
+      background: #cc1f1a;
+    }
+  }
+}
+.mycampaign__profile-panel {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+.allcard-wrapper {
+  position: relative;
+
+  .delete-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+
+    &:hover {
+      transform: scale(1.2);
+      opacity: 0.8;
+    }
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: #fff;
+  padding: 24px 32px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+
+  p {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 24px;
+  }
+
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      padding: 8px 16px;
+      border-radius: 6px;
+      border: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
+
+      &:first-child {
+        background-color: #e0e0e0;
+        color: #333;
+
+        &:hover {
+          background-color: #d5d5d5;
+        }
+      }
+
+      &:last-child {
+        background-color: #ff4d4f;
+        color: #fff;
+
+        &:hover {
+          background-color: #e04344;
+        }
+      }
+    }
+  }
+}

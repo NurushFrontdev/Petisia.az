@@ -1,0 +1,94 @@
+.filters-panel {
+  position: sticky;
+  top: 80px;
+  background: #fff;
+  z-index: 1009;
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background: #fff;
+
+  fieldset {
+    border: none;
+    margin-bottom: 20px;
+
+    legend {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 15px;
+      cursor: pointer;
+
+      input {
+        margin-right: 6px;
+      }
+    }
+  }
+
+  .topics-section {
+    margin-top: 20px;
+
+    h4 {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .topics-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      .topic-btn {
+        border: 1px solid #2563eb;
+        background: white;
+        color: #2563eb;
+        padding: 6px 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:hover {
+          background: #2563eb;
+          color: white;
+        }
+
+        &.active {
+          background: #2563eb;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .reset-btn {
+    margin-top: 20px;
+    background: #f3f3f3;
+    border: none;
+    padding: 8px 14px;
+    cursor: pointer;
+    border-radius: 6px;
+
+    &:hover {
+      background: #e0e0e0;
+    }
+  }
+}
+.reset-filters {
+  padding: 10px 15px;
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #c0392b;
+  }
+}

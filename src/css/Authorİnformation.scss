@@ -1,0 +1,115 @@
+.authorInfo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+}
+
+.authorInfo-photo {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.authorInfo-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.authorInfo-noPhoto {
+  color: #999;
+}
+
+.authorInfo-name {
+  font-size: 18px;
+  font-weight: 600;
+  padding: 6px 12px;
+}
+
+.authorInfo-country {
+  font-size: 14px;
+  padding: 4px 10px;
+  color: #555;
+}
+
+.authorInfo-aboutBtn {
+  background: #444;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.authorInfo-email {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  text-decoration: none;
+  transition: 0.3s;
+
+  &:hover {
+    color: #0066cc;
+    text-decoration: underline;
+  }
+}
+.authorInfo-aboutBtn:hover {
+  background: #333;
+}
+
+.authorInfo-modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.authorInfo-modalContent {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 300px;
+}
+
+.authorInfo-closeBtn {
+  margin-top: 10px;
+  background: #444;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.authorInfo-campaigns {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.authorInfo-card {
+  max-width: 100%;
+}
+.authorInfo-extra {
+  margin-top: 10px;
+  text-align: center;
+  max-width: 400px;
+  p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #333;
+  }
+}
