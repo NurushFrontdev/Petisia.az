@@ -11,7 +11,7 @@ const CompanyStartCard = ({ formData, handleBack }) => {
     const newCampaign = {
       id: Date.now(),
       status: "Yeni",
-      image: formData.imagePreview, // base64 qalır
+      image: formData.imagePreview,
       title: formData.title,
       description: formData.text,
       author: formData.author,
@@ -19,7 +19,7 @@ const CompanyStartCard = ({ formData, handleBack }) => {
       category: formData.category,
       country: "Azərbaycan",
       supporters: 0,
-      goalSupporters: Number(formData.goalSupporters), // inputdan gələn rəqəm
+      goalSupporters: Number(formData.goalSupporters),
     };
 
     const storedCampaigns =
