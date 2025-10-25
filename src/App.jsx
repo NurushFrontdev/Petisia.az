@@ -1,3 +1,4 @@
+// window.localStorage.clear();
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useState } from "react";
 import Layout from "./pages/layout";

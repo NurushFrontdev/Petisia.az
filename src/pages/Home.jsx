@@ -47,11 +47,18 @@ function Home({ campaigns, setCampaigns }) {
   const nextSlide = () => {
     setIndex((prev) => (prev + 1) % popularAndSuccessful.length);
   };
-
   useEffect(() => {
-    const stored = JSON.parse(localStorage.getItem("startedCampaigns")) || [];
-    if (stored.length > 0) {
-      setCampaigns(stored);
+    const user =
+      JSON.parse(localStorage.getItem("user")) ||
+      JSON.parse(localStorage.getItem("googleUser"));
+
+    if (user) {
+      const userId = user.sub || "default";
+      const stored =
+        JSON.parse(localStorage.getItem(`startedCampaigns_${userId}`)) || [];
+      if (stored.length > 0) {
+        setCampaigns(stored);
+      }
     }
   }, [setCampaigns]);
 
@@ -155,6 +162,28 @@ function Home({ campaigns, setCampaigns }) {
       return [...prev, ...newOnes];
     });
   }, [setCampaigns]);
+  useEffect(() => {
+    const handleCampaignsUpdate = () => {
+      const user = JSON.parse(
+        localStorage.getItem("user") || localStorage.getItem("googleUser")
+      );
+      if (user) {
+        const userId = user.sub || "default";
+        const storedCampaigns = localStorage.getItem(
+          `startedCampaigns_${userId}`
+        );
+        if (storedCampaigns) {
+          setCampaigns(JSON.parse(storedCampaigns));
+        }
+      }
+    };
+
+    window.addEventListener("campaignsUpdated", handleCampaignsUpdate);
+
+    return () => {
+      window.removeEventListener("campaignsUpdated", handleCampaignsUpdate);
+    };
+  }, []);
 
   return (
     <div className="home">

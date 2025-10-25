@@ -10,6 +10,31 @@ function Search({ campaigns, setCampaigns }) {
   const [statusFilter, setStatusFilter] = useState("all");
   const [signatureRange, setSignatureRange] = useState("");
   const [selectedTopic, setSelectedTopic] = useState("");
+  useEffect(() => {
+    const handleCampaignsUpdate = () => {
+      // yenidən localStorage-dan oxu
+      const user = JSON.parse(
+        localStorage.getItem("user") || localStorage.getItem("googleUser")
+      );
+      if (user) {
+        const userId = user.sub || "default";
+        const storedCampaigns = localStorage.getItem(
+          `startedCampaigns_${userId}`
+        );
+        if (storedCampaigns) {
+          setCampaigns(JSON.parse(storedCampaigns));
+        }
+      }
+    };
+
+    // event dinləyici əlavə et
+    window.addEventListener("campaignsUpdated", handleCampaignsUpdate);
+
+    // komponent bağlananda təmizlə
+    return () => {
+      window.removeEventListener("campaignsUpdated", handleCampaignsUpdate);
+    };
+  }, []);
 
   const filteredCampaigns = campaigns.filter((c) => {
     const matchCategory = selectedCategory

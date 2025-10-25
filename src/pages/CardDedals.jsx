@@ -43,25 +43,26 @@ function Detail() {
 
     const user = JSON.parse(storedUser);
     const userId = user.sub;
-    const signedKey = `signedCampaigns_${userId}`;
 
+    // 1️⃣ signedCampaigns (MyCampaign üçün)
+    const signedKey = `signedCampaigns_${userId}`;
     const signedCampaigns = JSON.parse(localStorage.getItem(signedKey)) || [];
 
-    const newCampaign = {
-      id,
-      image,
-      title,
-      description,
-      author,
-      authorPhoto,
-      supporters: supporters + 1,
-    };
-
-    const exists = signedCampaigns.find((c) => c.id === id);
-    if (!exists) {
-      signedCampaigns.push(newCampaign);
+    if (!signedCampaigns.find((c) => c.id === id)) {
+      signedCampaigns.push({ ...state, supporters: supporters + 1 });
       localStorage.setItem(signedKey, JSON.stringify(signedCampaigns));
     }
+
+    // 2️⃣ startedCampaigns (Home və Search üçün)
+    const startedKey = `startedCampaigns_${userId}`;
+    const startedCampaigns = JSON.parse(localStorage.getItem(startedKey)) || [];
+    const updatedStarted = startedCampaigns.map((c) =>
+      c.id === id ? { ...c, supporters: supporters + 1 } : c
+    );
+    localStorage.setItem(startedKey, JSON.stringify(updatedStarted));
+
+    // 3️⃣ event dispatch, Home və Search yenilənir
+    window.dispatchEvent(new Event("campaignsUpdated"));
   };
 
   return (

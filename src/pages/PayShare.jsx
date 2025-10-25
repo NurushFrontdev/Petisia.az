@@ -15,7 +15,8 @@ function PayShare() {
     supporters: initialSupporters,
     goalSupporters,
   } = state || {};
-
+  const [paid, setPaid] = useState(false);
+  const [copied, setCopied] = useState(false);
   const fullName = ad ? `${ad} ${soyad || ""}` : "Dostum";
   const [cardNumber, setCardNumber] = useState("");
   const [amount, setAmount] = useState("");
@@ -32,6 +33,7 @@ function PayShare() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const newActivity = {
       type: "payment",
       name: fullName,
@@ -39,10 +41,12 @@ function PayShare() {
       amount,
     };
     setActivities((prev) => [...prev, newActivity]);
-    setSupporters((prev) => prev + 1);
+
+    setPaid(true);
+    setTimeout(() => setPaid(false), 3000);
+
     setCardNumber("");
     setAmount("");
-    setMode("default");
   };
 
   const handleShare = () => {
@@ -52,14 +56,12 @@ function PayShare() {
       photo: authorPhoto || null,
     };
     setActivities((prev) => [...prev, newActivity]);
-    setSupporters((prev) => prev + 1);
 
     const shareLink = `${window.location.origin}/detail/${id}`;
     navigator.clipboard.writeText(shareLink).then(() => {
-      alert(`Link kopyalandı: ${shareLink}`);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 3000);
     });
-
-    setMode("default");
   };
 
   return (
@@ -71,7 +73,6 @@ function PayShare() {
           <>
             <h2>{fullName}, imzalamaktan fazlasını yapabilirsin!</h2>
             <Bar progress={supporters} goal={goalSupporters || 10000} />{" "}
-            {/* ✅ dinamik goal */}
             <div className="payshare-actions">
               <button
                 className="payshare-yes"
@@ -96,8 +97,16 @@ function PayShare() {
               readOnly
               style={{ width: "100%", marginBottom: "10px", padding: "5px" }}
             />
-            <button className="support-btn" onClick={handleShare}>
-              Linki kopyalayın
+            <button
+              className="support-btn"
+              onClick={handleShare}
+              style={{
+                backgroundColor: copied ? "#2ecc71" : "#f1c40f",
+                color: copied ? "white" : "black",
+                transition: "all 0.3s ease",
+              }}
+            >
+              {copied ? "Link kopyalandı " : "Linki kopyalayın"}
             </button>
             <p className="payment-back-text" onClick={() => setMode("default")}>
               Geri
@@ -135,7 +144,17 @@ function PayShare() {
                 />
               </div>
               <div className="payment-buttons">
-                <button type="submit">Ödənişi təsdiqlə</button>
+                <button
+                  type="submit"
+                  style={{
+                    backgroundColor: paid ? "#2ecc71" : "#f1c40f",
+                    color: paid ? "white" : "black",
+                    transition: "all 0.3s ease",
+                  }}
+                  disabled={paid}
+                >
+                  {paid ? "Ödəniş edildi " : "Ödənişi təsdiqlə"}
+                </button>
               </div>
               <p
                 className="payment-back-text"
@@ -155,7 +174,7 @@ function PayShare() {
             <li key={idx}>
               {a.name}{" "}
               {a.type === "payment"
-                ? `AZN ${a.amount} miqdarında dəstək verdi`
+                ? ` ${a.amount}AZN miqdarında dəstək verdi`
                 : "kampanyanı paylaştı"}
             </li>
           ))}

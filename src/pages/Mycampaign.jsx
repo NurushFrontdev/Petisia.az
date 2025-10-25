@@ -82,6 +82,7 @@ export default function Mycampaign() {
     );
 
     setDeleteTarget(null);
+    window.dispatchEvent(new Event("campaignsUpdated"));
   };
 
   return (
