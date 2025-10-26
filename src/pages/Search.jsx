@@ -12,7 +12,6 @@ function Search({ campaigns, setCampaigns }) {
   const [selectedTopic, setSelectedTopic] = useState("");
   useEffect(() => {
     const handleCampaignsUpdate = () => {
-      // yenidən localStorage-dan oxu
       const user = JSON.parse(
         localStorage.getItem("user") || localStorage.getItem("googleUser")
       );
@@ -27,10 +26,8 @@ function Search({ campaigns, setCampaigns }) {
       }
     };
 
-    // event dinləyici əlavə et
     window.addEventListener("campaignsUpdated", handleCampaignsUpdate);
 
-    // komponent bağlananda təmizlə
     return () => {
       window.removeEventListener("campaignsUpdated", handleCampaignsUpdate);
     };

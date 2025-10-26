@@ -24,7 +24,6 @@ const Allcard = ({
       badgeText = "Yeni";
     }
   }
-
   const badgeClass =
     badgeText === "Yeni"
       ? "yeni"

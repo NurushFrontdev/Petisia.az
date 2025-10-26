@@ -1,4 +1,3 @@
-// Detail.jsx
 import { useState, useEffect } from "react";
 import { useParams, useLocation, Link } from "react-router-dom";
 import "../css/CardDedals.scss";
@@ -6,7 +5,8 @@ import "../css/CardDedals.scss";
 function Detail() {
   const { id } = useParams();
   const { state } = useLocation();
-  const { image, title, description, author, authorPhoto } = state || {};
+  const { image, title, description, author, authorPhoto, goalSupporters } =
+    state || {};
 
   const [supporters, setSupporters] = useState(Number(state?.supporters) || 0);
   const [formData, setFormData] = useState({
@@ -43,27 +43,28 @@ function Detail() {
 
     const user = JSON.parse(storedUser);
     const userId = user.sub;
-
-    // 1️⃣ signedCampaigns (MyCampaign üçün)
     const signedKey = `signedCampaigns_${userId}`;
+
     const signedCampaigns = JSON.parse(localStorage.getItem(signedKey)) || [];
 
-    if (!signedCampaigns.find((c) => c.id === id)) {
-      signedCampaigns.push({ ...state, supporters: supporters + 1 });
+    const newCampaign = {
+      id,
+      image,
+      title,
+      description,
+      author,
+      authorPhoto,
+      supporters: supporters + 1,
+    };
+
+    const exists = signedCampaigns.find((c) => c.id === id);
+    if (!exists) {
+      signedCampaigns.push(newCampaign);
       localStorage.setItem(signedKey, JSON.stringify(signedCampaigns));
     }
-
-    // 2️⃣ startedCampaigns (Home və Search üçün)
-    const startedKey = `startedCampaigns_${userId}`;
-    const startedCampaigns = JSON.parse(localStorage.getItem(startedKey)) || [];
-    const updatedStarted = startedCampaigns.map((c) =>
-      c.id === id ? { ...c, supporters: supporters + 1 } : c
-    );
-    localStorage.setItem(startedKey, JSON.stringify(updatedStarted));
-
-    // 3️⃣ event dispatch, Home və Search yenilənir
-    window.dispatchEvent(new Event("campaignsUpdated"));
   };
+
+  const remainingSupporters = (goalSupporters || 10000) - supporters;
 
   return (
     <div className="detail-container">
@@ -71,6 +72,7 @@ function Detail() {
         <h1 className="detail-title">{title}</h1>
         <img src={image} alt={title} className="detail-image" />
         <p className="detail-text">{description}</p>
+
         <div className="detail-author">
           <div className="author-card">
             <div className="author-left">
@@ -120,55 +122,68 @@ function Detail() {
         <div className="support-box">
           <h2 className="support-count">{supporters}</h2>
           <p className="support-verify">✅ Doğrulanmış imza</p>
-          <p className="support-text">
-            Dəstəyin sayəsində kampaniyanın qazanmaq üçün bir şansı var. Hədəfə
-            çatmaq üçün {10000 - supporters} imza daha lazımdır. Yardım
-            edərsənmi?
-          </p>
 
-          <div className="support-inputs">
-            <input
-              type="text"
-              name="ad"
-              placeholder="Ad"
-              value={formData.ad}
-              onChange={handleChange}
-            />
-            <input
-              type="text"
-              name="soyad"
-              placeholder="Soyad"
-              value={formData.soyad}
-              onChange={handleChange}
-            />
-            <input
-              type="email"
-              name="gmail"
-              placeholder="Gmail"
-              value={formData.gmail}
-              onChange={handleChange}
-            />
-          </div>
+          {remainingSupporters > 0 ? (
+            <>
+              <p className="support-text">
+                Dəstəyin sayəsində kampaniyanın qazanmaq üçün bir şansı var.{" "}
+                Hədəfə çatmaq üçün {remainingSupporters} imza daha lazımdır.
+                Yardım edərsənmi?
+              </p>
 
-          <button className="support-btn" onClick={handleSupport}>
-            <Link
-              to="/pay-or-share"
-              state={{
-                id,
-                image,
-                title,
-                description,
-                author,
-                authorPhoto,
-                supporters: supporters + 1,
-                ad: formData.ad,
-                soyad: formData.soyad,
-              }}
-              style={{ color: "black", textDecoration: "none" }}
-            >
-              Kampanyanı imzala
-            </Link>
-          </button>
+              <div className="support-inputs">
+                <input
+                  type="text"
+                  name="ad"
+                  placeholder="Ad"
+                  value={formData.ad}
+                  onChange={handleChange}
+                />
+                <input
+                  type="text"
+                  name="soyad"
+                  placeholder="Soyad"
+                  value={formData.soyad}
+                  onChange={handleChange}
+                />
+                <input
+                  type="email"
+                  name="gmail"
+                  placeholder="Gmail"
+                  value={formData.gmail}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <button className="support-btn" onClick={handleSupport}>
+                <Link
+                  to="/pay-or-share"
+                  state={{
+                    id,
+                    image,
+                    title,
+                    description,
+                    author,
+                    authorPhoto,
+                    supporters: supporters + 1,
+                    ad: formData.ad,
+                    soyad: formData.soyad,
+                  }}
+                  style={{ color: "black", textDecoration: "none" }}
+                >
+                  Kampanyanı imzala
+                </Link>
+              </button>
+            </>
+          ) : (
+            <p className="success-message">
+              Bu kampaniyaya dəstək olan {goalSupporters} nəfərə Petisia.az
+              komandası olaraq dərin təşəkkürümüzü bildiririk. Sizin birliyiniz,
+              təmiz qəlbiniz və ədalətli ruhunuz sayəsində bu kampaniya uğurla
+              başa çatdı. Unutmayaq, biz birlikdə güclüyük — hər bir imza
+              dəyişimin səsi, hər bir dəstək gələcəyin ümididir.
+            </p>
+          )}
         </div>
       </div>
     </div>
