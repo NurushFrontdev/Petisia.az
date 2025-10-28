@@ -121,14 +121,7 @@ const CompanyStart = () => {
 
           <label>
             Kampanyanın mətni
-            <CKEditor
-              editor={ClassicEditor}
-              data={formData.text}
-              onChange={(event, editor) => {
-                const data = editor.getData();
-                setFormData({ ...formData, text: data });
-              }}
-            />
+            <textarea name="" id=""></textarea>
           </label>
 
           <div className="author-section">

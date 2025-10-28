@@ -33,8 +33,6 @@ function Detail() {
   };
 
   const handleSupport = () => {
-    setSupporters((prev) => prev + 1);
-
     const storedUser = localStorage.getItem("googleUser");
     if (!storedUser) {
       alert("İmzalamaq üçün əvvəlcə daxil olun!");
@@ -44,8 +42,9 @@ function Detail() {
     const user = JSON.parse(storedUser);
     const userId = user.sub;
     const signedKey = `signedCampaigns_${userId}`;
-
     const signedCampaigns = JSON.parse(localStorage.getItem(signedKey)) || [];
+
+    const newSupporters = supporters + 1;
 
     const newCampaign = {
       id,
@@ -54,7 +53,7 @@ function Detail() {
       description,
       author,
       authorPhoto,
-      supporters: supporters + 1,
+      supporters: newSupporters,
     };
 
     const exists = signedCampaigns.find((c) => c.id === id);
@@ -62,9 +61,32 @@ function Detail() {
       signedCampaigns.push(newCampaign);
       localStorage.setItem(signedKey, JSON.stringify(signedCampaigns));
     }
+
+    setSupporters(newSupporters);
+
+    const userCampaignsKey = `startedCampaigns_${userId}`;
+    const allCampaigns =
+      JSON.parse(localStorage.getItem(userCampaignsKey)) || [];
+
+    let found = false;
+    const updatedCampaigns = allCampaigns.map((c) => {
+      if (String(c.id) === String(id)) {
+        found = true;
+        return { ...c, supporters: newSupporters };
+      }
+      return c;
+    });
+
+    if (!found) {
+      updatedCampaigns.push(newCampaign);
+    }
+
+    localStorage.setItem(userCampaignsKey, JSON.stringify(updatedCampaigns));
+
+    window.dispatchEvent(new Event("campaignsUpdated"));
   };
 
-  const remainingSupporters = (goalSupporters || 10000) - supporters;
+  const remainingSupporters = goalSupporters - supporters;
 
   return (
     <div className="detail-container">
@@ -165,6 +187,7 @@ function Detail() {
                     description,
                     author,
                     authorPhoto,
+                    goalSupporters,
                     supporters: supporters + 1,
                     ad: formData.ad,
                     soyad: formData.soyad,
@@ -177,7 +200,7 @@ function Detail() {
             </>
           ) : (
             <p className="success-message">
-              Bu kampaniyaya dəstək olan {goalSupporters} nəfərə Petisia.az
+              Bu kampaniyaya dəstək olan {supporters} nəfərə Petisia.az
               komandası olaraq dərin təşəkkürümüzü bildiririk. Sizin birliyiniz,
               təmiz qəlbiniz və ədalətli ruhunuz sayəsində bu kampaniya uğurla
               başa çatdı. Unutmayaq, biz birlikdə güclüyük — hər bir imza

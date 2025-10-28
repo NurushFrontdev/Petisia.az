@@ -24,10 +24,10 @@ function PayShare() {
   const [mode, setMode] = useState("default");
   const [activities, setActivities] = useState([]);
 
-  const progress = Math.min(supporters, goalSupporters || 10000);
+  const progress = Math.min(supporters, goalSupporters);
   const getColor = () => {
-    if (progress < (goalSupporters || 10000) * 0.4) return "#ff0000";
-    if (progress < (goalSupporters || 10000) * 0.7) return "#ffa500";
+    if (progress < goalSupporters * 0.4) return "#ff0000";
+    if (progress < goalSupporters * 0.7) return "#ffa500";
     return "#2ecc71";
   };
 
@@ -72,7 +72,7 @@ function PayShare() {
         {mode === "default" && (
           <>
             <h2>{fullName}, imzalamaktan fazlasını yapabilirsin!</h2>
-            <Bar progress={supporters} goal={goalSupporters || 10000} />{" "}
+            <Bar progress={supporters} goal={goalSupporters} />{" "}
             <div className="payshare-actions">
               <button
                 className="payshare-yes"
