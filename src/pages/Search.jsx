@@ -42,18 +42,19 @@ function Search({ campaigns, setCampaigns }) {
     let matchStatus = true;
     if (statusFilter) {
       const count = c.supporters;
+      const resultcount = c.goalSupporters;
       switch (statusFilter) {
         case "all":
           matchStatus = true;
           break;
         case "success":
-          matchStatus = count >= 10000;
+          matchStatus = count == resultcount;
           break;
         case "new":
           matchStatus = count < 100;
           break;
         case "popular":
-          matchStatus = count >= 7000 && count < 10000;
+          matchStatus = count >= resultcount * 0.8 && count != resultcount;
           break;
         default:
           matchStatus = true;
