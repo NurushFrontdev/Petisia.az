@@ -199,7 +199,7 @@ const CompanyStart = () => {
             {useProfileName === "yes" && !userProfile && (
               <p className="note profile-note no-profile">
                 Profil məlumatlarınız mövcud deyil. Zəhmət olmasa profilinizi
-                yaradın. <Link to="/profile">Profilə keç</Link>
+                yaradın. <Link to="/kampanyalarım">Profilə keç</Link>
               </p>
             )}
           </div>

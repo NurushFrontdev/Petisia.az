@@ -115,7 +115,7 @@ function Home({ campaigns, setCampaigns }) {
         country: "Azərbaycan",
         supporters: 850,
         goalSupporters: 1000,
-        category: "heyvan hüquqları",
+        category: "Uşaq hüquqları",
       },
       {
         id: 4,
@@ -127,7 +127,7 @@ function Home({ campaigns, setCampaigns }) {
         country: "Azərbaycan",
         supporters: 5000,
         goalSupporters: 5000,
-        category: "Sağlamlıq",
+        category: "Siyasət və dövlət idarəçiliyi",
       },
       {
         id: 5,
@@ -139,7 +139,7 @@ function Home({ campaigns, setCampaigns }) {
         country: "Azərbaycan",
         supporters: 2100,
         goalSupporters: 7000,
-        category: "İnsan haqları",
+        category: "Əlil insanlar və Xəstə hüquqları",
       },
       {
         id: 6,
@@ -151,7 +151,7 @@ function Home({ campaigns, setCampaigns }) {
         country: "Azərbaycan",
         supporters: 50,
         goalSupporters: 1000,
-        category: "Sosial dəstək",
+        category: "Media,İncəsənət və Mədəniyyət",
       },
     ];
 
@@ -169,12 +169,13 @@ function Home({ campaigns, setCampaigns }) {
       );
       if (user) {
         const userId = user.sub || "default";
-        const storedCampaigns = localStorage.getItem(
-          `startedCampaigns_${userId}`
-        );
-        if (storedCampaigns) {
-          setCampaigns(JSON.parse(storedCampaigns));
-        }
+
+        const startedCampaigns =
+          JSON.parse(localStorage.getItem(`startedCampaigns_${userId}`)) || [];
+        const signedCampaigns =
+          JSON.parse(localStorage.getItem(`signedCampaigns_${userId}`)) || [];
+
+        setCampaigns([...startedCampaigns, ...signedCampaigns]);
       }
     };
 

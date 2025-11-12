@@ -56,33 +56,17 @@ function Detail() {
       supporters: newSupporters,
     };
 
-    const exists = signedCampaigns.find((c) => c.id === id);
+    // Əgər istifadəçi artıq imzalamayıbsa, əlavə et
+    const exists = signedCampaigns.find((c) => String(c.id) === String(id));
     if (!exists) {
       signedCampaigns.push(newCampaign);
       localStorage.setItem(signedKey, JSON.stringify(signedCampaigns));
     }
 
+    // Ekrandakı dəstək sayını artır
     setSupporters(newSupporters);
 
-    const userCampaignsKey = `startedCampaigns_${userId}`;
-    const allCampaigns =
-      JSON.parse(localStorage.getItem(userCampaignsKey)) || [];
-
-    let found = false;
-    const updatedCampaigns = allCampaigns.map((c) => {
-      if (String(c.id) === String(id)) {
-        found = true;
-        return { ...c, supporters: newSupporters };
-      }
-      return c;
-    });
-
-    if (!found) {
-      updatedCampaigns.push(newCampaign);
-    }
-
-    localStorage.setItem(userCampaignsKey, JSON.stringify(updatedCampaigns));
-
+    // Diger komponentlərdə yenilənmə hadisəsini işə sal
     window.dispatchEvent(new Event("campaignsUpdated"));
   };
 
@@ -97,45 +81,54 @@ function Detail() {
 
         <div className="detail-author">
           <div className="author-card">
-            <div className="author-left">
-              {authorPhoto && (
-                <Link
-                  to="/author-info"
-                  state={{
-                    first_name: author.split(" ")[0],
-                    last_name: author.split(" ")[1] || "",
-                    photo: authorPhoto,
-                    username: state?.authorEmail || "",
-                    about: state?.authorAbout || "",
-                    country: state?.authorCountry || "",
-                  }}
-                >
-                  <img
-                    src={authorPhoto}
-                    alt={author}
-                    className="author-photo"
-                  />
-                </Link>
-              )}
-            </div>
+            {authorPhoto ? (
+              <>
+                <div className="author-left">
+                  <Link
+                    to="/author-info"
+                    state={{
+                      first_name: author.split(" ")[0],
+                      last_name: author.split(" ")[1] || "",
+                      photo: authorPhoto,
+                      username: state?.authorEmail || "",
+                      about: state?.authorAbout || "",
+                      country: state?.authorCountry || "",
+                    }}
+                  >
+                    <img
+                      src={authorPhoto}
+                      alt={author}
+                      className="author-photo"
+                    />
+                  </Link>
+                </div>
 
-            <div className="author-right">
-              <Link
-                to="/author-info"
-                state={{
-                  first_name: author.split(" ")[0],
-                  last_name: author.split(" ")[1] || "",
-                  photo: authorPhoto,
-                  username: state?.authorEmail || "",
-                  about: state?.authorAbout || "",
-                  country: state?.authorCountry || "",
-                }}
-                className="author-name"
-              >
-                {author}
-              </Link>
-              <p className="author-subtitle">Kampaniyanı başladan</p>
-            </div>
+                <div className="author-right">
+                  <Link
+                    to="/author-info"
+                    state={{
+                      first_name: author.split(" ")[0],
+                      last_name: author.split(" ")[1] || "",
+                      photo: authorPhoto,
+                      username: state?.authorEmail || "",
+                      about: state?.authorAbout || "",
+                      country: state?.authorCountry || "",
+                    }}
+                    className="author-name"
+                  >
+                    {author}
+                  </Link>
+                  <p className="author-subtitle">Kampaniyanı başladan</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="author-right">
+                  <p className="author-name">{author}</p>
+                  <p className="author-subtitle">Kampaniyanı başladan</p>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
