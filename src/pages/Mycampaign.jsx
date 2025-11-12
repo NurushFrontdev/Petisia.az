@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "../css/Mycampaign.scss";
 import Allcard from "./Allcard.jsx";
 import DeleteIcon from "../assets/delete icon.png";
+import IconGoogleUser from "../assets/icon-google-user.svg";
 
 export default function Mycampaign() {
   const [activeTab, setActiveTab] = useState("imzalanan");
@@ -97,8 +98,13 @@ export default function Mycampaign() {
                 className="mycampaign__avatar"
               />
             ) : (
-              <span className="mycampaign__avatar">👤</span>
+              <img
+                src={IconGoogleUser}
+                alt="Default avatar"
+                className="mycampaign__avatar"
+              />
             )}
+
             <div>
               <h1 className="mycampaign__name">
                 {user?.first_name

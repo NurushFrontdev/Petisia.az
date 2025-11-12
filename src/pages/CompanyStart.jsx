@@ -28,17 +28,25 @@ const CompanyStart = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [errors, setErrors] = useState({});
 
+  // =========================
+  // localStorage-dan formData yüklə
+  // =========================
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser =
+      localStorage.getItem("user") || localStorage.getItem("googleUser");
     if (storedUser) {
       setUserProfile(JSON.parse(storedUser));
+    }
+
+    const savedFormData = localStorage.getItem("companyFormData");
+    if (savedFormData) {
+      setFormData(JSON.parse(savedFormData));
     }
   }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // İnsan sayı üçün max limit
     if (name === "goalSupporters") {
       if (parseInt(value, 10) > 10000) {
         setErrors((prev) => ({
@@ -50,7 +58,13 @@ const CompanyStart = () => {
       }
     }
 
-    setFormData({ ...formData, [name]: value });
+    const updatedData = { ...formData, [name]: value };
+    setFormData(updatedData);
+
+    // =========================
+    // localStorage-a yaz
+    // =========================
+    localStorage.setItem("companyFormData", JSON.stringify(updatedData));
   };
 
   const handleFileChange = (e) => {
@@ -58,11 +72,13 @@ const CompanyStart = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData({
+        const updatedData = {
           ...formData,
           image: file,
           imagePreview: reader.result,
-        });
+        };
+        setFormData(updatedData);
+        localStorage.setItem("companyFormData", JSON.stringify(updatedData));
       };
       reader.readAsDataURL(file);
     }
@@ -96,6 +112,11 @@ const CompanyStart = () => {
     if (Object.keys(newErrors).length > 0) return;
 
     setSubmitted(true);
+
+    // =========================
+    // form uğurla submit olunduqda localStorage-dan sil
+    // =========================
+    localStorage.removeItem("companyFormData");
   };
 
   const handleBack = () => {
@@ -106,6 +127,7 @@ const CompanyStart = () => {
     <div className="petition-container">
       {!submitted ? (
         <form className="petition-form" onSubmit={handleSubmit}>
+          {/* Sənin mövcud kodun */}
           <h2>Kampanya Başlat</h2>
 
           <label>
@@ -121,7 +143,18 @@ const CompanyStart = () => {
 
           <label>
             Kampanyanın mətni
-            <textarea name="" id=""></textarea>
+            <textarea
+              name="text"
+              value={formData.text || ""}
+              onChange={(e) => {
+                const updatedData = { ...formData, text: e.target.value };
+                setFormData(updatedData);
+                localStorage.setItem(
+                  "companyFormData",
+                  JSON.stringify(updatedData)
+                );
+              }}
+            />
           </label>
 
           <div className="author-section">
@@ -136,13 +169,18 @@ const CompanyStart = () => {
                   onChange={() => {
                     setUseProfileName("yes");
                     if (userProfile) {
-                      setFormData({
+                      const updatedData = {
                         ...formData,
                         author: `${userProfile.first_name || ""} ${
                           userProfile.last_name || ""
                         }`.trim(),
                         authorPhoto: userProfile.photo || "",
-                      });
+                      };
+                      setFormData(updatedData);
+                      localStorage.setItem(
+                        "companyFormData",
+                        JSON.stringify(updatedData)
+                      );
                     }
                   }}
                 />
@@ -156,7 +194,16 @@ const CompanyStart = () => {
                   checked={useProfileName === "no"}
                   onChange={() => {
                     setUseProfileName("no");
-                    setFormData({ ...formData, author: "", authorPhoto: "" });
+                    const updatedData = {
+                      ...formData,
+                      author: "",
+                      authorPhoto: "",
+                    };
+                    setFormData(updatedData);
+                    localStorage.setItem(
+                      "companyFormData",
+                      JSON.stringify(updatedData)
+                    );
                   }}
                 />
                 <span>Əl ilə daxil et</span>

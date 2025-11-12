@@ -16,13 +16,15 @@ function Detail() {
   });
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("googleUser");
+    const storedUser =
+      localStorage.getItem("user") || localStorage.getItem("googleUser");
+
     if (storedUser) {
       const parsed = JSON.parse(storedUser);
       setFormData({
-        ad: parsed.given_name || "",
-        soyad: parsed.family_name || "",
-        gmail: parsed.email || "",
+        ad: parsed.first_name || parsed.given_name || "",
+        soyad: parsed.last_name || parsed.family_name || "",
+        gmail: parsed.username || parsed.email || "",
       });
     }
   }, []);
@@ -32,10 +34,12 @@ function Detail() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const [supportError, setSupportError] = useState(""); // state yarat
+
   const handleSupport = () => {
     const storedUser = localStorage.getItem("googleUser");
     if (!storedUser) {
-      alert("İmzalamaq üçün əvvəlcə daxil olun!");
+      setSupportError("Siz sayta daxil olmamısınız!"); // ✅ burda setSupportError
       return;
     }
 
@@ -168,6 +172,12 @@ function Detail() {
                   value={formData.gmail}
                   onChange={handleChange}
                 />
+                {/* ⚠️ Qırmızı mesaj burada göstərilir */}
+                {supportError && (
+                  <p className="support-error" style={{ color: "red" }}>
+                    {supportError}
+                  </p>
+                )}
               </div>
 
               <button className="support-btn" onClick={handleSupport}>

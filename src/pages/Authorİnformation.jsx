@@ -7,7 +7,8 @@ const Authorİnformation = ({ campaigns }) => {
   const [showMore, setShowMore] = useState(false);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("user");
+    const storedUser =
+      localStorage.getItem("user") || localStorage.getItem("googleUser");
     if (storedUser) {
       setAuthor(JSON.parse(storedUser));
     }

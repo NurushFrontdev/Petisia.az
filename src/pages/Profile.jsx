@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../css/Profile.scss";
+import IconGoogleUser from "../assets/icon-google-user.svg";
 
 const Profile = () => {
   const [photo, setPhoto] = useState(null);
@@ -9,6 +10,7 @@ const Profile = () => {
     username: "",
     country: "",
   });
+  const [saved, setSaved] = useState(false); // ✅ Yadda saxlanıldı statusu
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -37,8 +39,18 @@ const Profile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedUser = { ...formData, photo };
-    localStorage.setItem("user", JSON.stringify(updatedUser));
-    alert("Məlumatlar yadda saxlanıldı!");
+
+    const googleUser = JSON.parse(localStorage.getItem("googleUser"));
+    if (googleUser) {
+      const mergedUser = { ...googleUser, ...updatedUser };
+      localStorage.setItem("googleUser", JSON.stringify(mergedUser));
+    } else {
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+    }
+
+    // ✅ Buttonu yaşıl və mesaj göstər
+    setSaved(true);
+    setTimeout(() => setSaved(false), 5000); // 5 saniyə sonra geri qayıt
   };
 
   return (
@@ -48,8 +60,13 @@ const Profile = () => {
 
         <div className="avatar-section">
           <div className="avatar">
-            {photo ? <img src={photo} alt="Profil" /> : "👤"}
+            {photo ? (
+              <img src={photo} alt="Profil" />
+            ) : (
+              <img src={IconGoogleUser} alt="Default profil" />
+            )}
           </div>
+
           <input
             type="file"
             id="photo"
@@ -109,8 +126,12 @@ const Profile = () => {
           </div>
 
           <div className="actions">
-            <button type="submit" className="btn primary">
-              Yadda saxla
+            <button
+              type="submit"
+              className="btn primary"
+              style={{ backgroundColor: saved ? "green" : "" }}
+            >
+              {saved ? "Yadda saxlanıldı" : "Yadda saxla"}
             </button>
           </div>
         </form>
