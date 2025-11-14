@@ -235,19 +235,16 @@ const CompanyStart = () => {
                     {userProfile.first_name} {userProfile.last_name}
                   </span>
                 </div>
+                {/* <p className="note profile-note no-profile">
+                  Profil məlumatlarınız mövcud deyil. Zəhmət olmasa profilinizi
+                  yaradın. <Link to="/kampanyalarım">Profilə keç</Link>
+                </p> */}
                 <p className="note profile-note">
                   Qeyd*: Siz bu seçimi etdikdə kampaniyanı imzalayan şəxslər
                   sizin profil hesabınızı və yaratdığınız digər kampaniyaları da
                   görə biləcək.
                 </p>
               </>
-            )}
-
-            {useProfileName === "yes" && !userProfile && (
-              <p className="note profile-note no-profile">
-                Profil məlumatlarınız mövcud deyil. Zəhmət olmasa profilinizi
-                yaradın. <Link to="/kampanyalarım">Profilə keç</Link>
-              </p>
             )}
           </div>
 

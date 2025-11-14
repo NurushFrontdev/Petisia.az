@@ -14,6 +14,7 @@ function Detail() {
     soyad: "",
     gmail: "",
   });
+  const [supportError, setSupportError] = useState("");
 
   useEffect(() => {
     const storedUser =
@@ -34,12 +35,12 @@ function Detail() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const [supportError, setSupportError] = useState(""); // state yarat
-
-  const handleSupport = () => {
+  const handleSupport = (e) => {
     const storedUser = localStorage.getItem("googleUser");
+
     if (!storedUser) {
-      setSupportError("Siz sayta daxil olmamısınız!"); // ✅ burda setSupportError
+      e.preventDefault(); // 🔥 Link yönləndirməsini dayandırır
+      setSupportError("Siz sayta daxil olmamısınız!");
       return;
     }
 
@@ -60,17 +61,13 @@ function Detail() {
       supporters: newSupporters,
     };
 
-    // Əgər istifadəçi artıq imzalamayıbsa, əlavə et
     const exists = signedCampaigns.find((c) => String(c.id) === String(id));
     if (!exists) {
       signedCampaigns.push(newCampaign);
       localStorage.setItem(signedKey, JSON.stringify(signedCampaigns));
     }
 
-    // Ekrandakı dəstək sayını artır
     setSupporters(newSupporters);
-
-    // Diger komponentlərdə yenilənmə hadisəsini işə sal
     window.dispatchEvent(new Event("campaignsUpdated"));
   };
 
@@ -126,12 +123,10 @@ function Detail() {
                 </div>
               </>
             ) : (
-              <>
-                <div className="author-right">
-                  <p className="author-name">{author}</p>
-                  <p className="author-subtitle">Kampaniyanı başladan</p>
-                </div>
-              </>
+              <div className="author-right">
+                <p className="author-name">{author}</p>
+                <p className="author-subtitle">Kampaniyanı başladan</p>
+              </div>
             )}
           </div>
         </div>
@@ -172,7 +167,6 @@ function Detail() {
                   value={formData.gmail}
                   onChange={handleChange}
                 />
-                {/* ⚠️ Qırmızı mesaj burada göstərilir */}
                 {supportError && (
                   <p className="support-error" style={{ color: "red" }}>
                     {supportError}
@@ -180,7 +174,7 @@ function Detail() {
                 )}
               </div>
 
-              <button className="support-btn" onClick={handleSupport}>
+              <button className="support-btn">
                 <Link
                   to="/pay-or-share"
                   state={{
@@ -195,6 +189,7 @@ function Detail() {
                     ad: formData.ad,
                     soyad: formData.soyad,
                   }}
+                  onClick={handleSupport}
                   style={{ color: "black", textDecoration: "none" }}
                 >
                   Kampanyanı imzala
