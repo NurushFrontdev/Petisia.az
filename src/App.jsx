@@ -12,6 +12,7 @@ import PayShare from "./pages/PayShare";
 import Profile from "./pages/Profile";
 import Authorİnformation from "./pages/Authorİnformation";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 import ContactAuthor from "./pages/ContactAuthor";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
             element={<Mycampaign campaigns={campaigns} />}
           />
           <Route path="haqqımızda" element={<About />} />
+          <Route path="elaqe" element={<Contact />} />
           <Route path="kampanyalarım/profil" element={<Profile />} />
           <Route path="axtar" element={<Search campaigns={campaigns} />} />
           <Route path="contact-author" element={<ContactAuthor />} />

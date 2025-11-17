@@ -40,7 +40,7 @@ const Footer = () => {
               <Link to="/haqqımızda">Biz kimik?</Link>
             </li>
             <li>
-              <Link to="#">Əlaqə</Link>
+              <Link to="/elaqe">Əlaqə</Link>
             </li>
           </ul>
         </div>

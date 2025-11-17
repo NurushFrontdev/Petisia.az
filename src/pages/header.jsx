@@ -35,6 +35,7 @@ function Header() {
           <Link to="/kampanyalarım">Kampanyalarım</Link>
           <Link to="/axtar">Axtar</Link>
           <Link to="/haqqımızda">Haqqımızda</Link>
+          <Link to="/elaqe">Əlaqə</Link>
         </div>
       </div>
       <div className="button">
