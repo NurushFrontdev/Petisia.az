@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../css/CompanyStart.scss";
 import CompanyStartCard from "./CompanyStartCard";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Link } from "react-router-dom";
 

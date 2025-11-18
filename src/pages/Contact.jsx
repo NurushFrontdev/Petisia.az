@@ -30,7 +30,7 @@ function Contact() {
               <div className="contact__meta">
                 <div className="contact__meta-title">Ünvan</div>
                 <div className="contact__meta-sub" id="contact-address">
-                  Bakı, Nümunə küçəsi 123
+                  Bakı, Nizami küçəsi 34{" "}
                 </div>
               </div>
             </div>
@@ -54,7 +54,7 @@ function Contact() {
               <div className="contact__meta">
                 <div className="contact__meta-title">E-poçt</div>
                 <div className="contact__meta-sub">
-                  <a href="mailto:info@petisa.az">info@petisa.az</a>
+                  <a href="mailto:info@petisa.az">info@petisia.az</a>
                 </div>
               </div>
             </div>

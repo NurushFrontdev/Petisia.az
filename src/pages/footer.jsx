@@ -54,9 +54,6 @@ const Footer = () => {
             <li>
               <a href="#">Instagram</a>
             </li>
-            <li>
-              <a href="#">TikTok</a>
-            </li>
           </ul>
         </div>
       </div>
