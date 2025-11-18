@@ -15,14 +15,6 @@ function Header() {
         return;
       }
     }
-
-    const googleUser = localStorage.getItem("googleUser");
-    if (googleUser) {
-      const parsedGoogle = JSON.parse(googleUser);
-      if (parsedGoogle.picture) {
-        setUserPhoto(parsedGoogle.picture);
-      }
-    }
   }, []);
 
   return (

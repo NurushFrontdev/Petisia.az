@@ -98,11 +98,7 @@ export default function Mycampaign() {
                 className="mycampaign__avatar"
               />
             ) : (
-              <img
-                src={IconGoogleUser}
-                alt="Default avatar"
-                className="mycampaign__avatar"
-              />
+              <img src={IconGoogleUser} alt="" className="mycampaign__avatar" />
             )}
 
             <div>
