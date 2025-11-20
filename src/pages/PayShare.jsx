@@ -71,17 +71,18 @@ function PayShare() {
 
         {mode === "default" && (
           <>
-            <h2>{fullName}, imzalamaktan fazlasını yapabilirsin!</h2>
+            <h2>{fullName}, sən imza atmaqdan daha çox şey edə bilərsən!</h2>
             <Bar progress={supporters} goal={goalSupporters} />{" "}
             <div className="payshare-actions">
               <button
                 className="payshare-yes"
                 onClick={() => setMode("payment")}
               >
-                Evet, kampanya hedefine ulaşması için AZN 5,10 destek vereceğim
+                Bəli, kampaniyanın məqsədinə çatmaq üçün 5.10 AZN-ə dəstək
+                olacağam
               </button>
               <button className="payshare-no" onClick={() => setMode("share")}>
-                Hayır, kampanyayı paylaşacağım
+                Yox, kampaniyanı paylaşacam{" "}
               </button>
             </div>
           </>
@@ -117,8 +118,8 @@ function PayShare() {
         {mode === "payment" && (
           <div className="payment-form">
             <h3>
-              Sən heyrətamizsən, {fullName}! Büdcənizdən nə qədər vəsait ayıra
-              bilərsiniz?
+              Sən həqiqətən möhtəşəmsən, {fullName}! Büdcənizdən nə qədər vəsait
+              ayıra bilərsiniz?
             </h3>
             <form onSubmit={handleSubmit}>
               <div>
