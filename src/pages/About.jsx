@@ -45,7 +45,7 @@ function About() {
         bir yerə çevirə bilərik.
       </div>
       <div className="who-uses">
-        <h2 className="who-uses__title">Petisia.az-u kim istifadə edir?</h2>
+        <h2 className="who-uses__title">Petisia.az kim istifadə edir?</h2>
 
         <div className="who-uses__grid">
           <div className="who-uses__item">
