@@ -111,7 +111,7 @@ function Home({ campaigns, setCampaigns }) {
       {
         id: 3,
         image: childern,
-        title: "Evsiz Uşaqları Koru",
+        title: "Evsiz Uşaqları Qoru",
         description:
           "Evsiz uşaqlar yoxsulluqdan, az və ya heç təhsil almamaqdan və zorakılıqdan əziyyət çəkirlər. Onların bir gün bizim kimi yaşaya biləcəklərinə ümidləri var. Soyuqdan, aclıqdan, susuzluqdan, avtomobil qəzalarından ölürlər. Onlar xoşbəxt uşaqları yemək yeyərkən, rahat evlərdə və rahatlıqda görürlər, lakin təəssüf ki, evsizlər bunu görmürlər.Onlar ölüm adlanan dostları ilə görüşmək təhlükəsi ilə üz-üzədirlər ki, bu da evsiz uşaqların gözlərini yummasına səbəb olur. Uşaqlarımıza kömək etməliyik, yoxsa daha az əhali ilə pis gələcəyimiz olacaq. Bəlkə biz onlara kömək edə bilərik ki, onlar da bizim kimi ola bilsinlər və ya bir vaxtlar evsiz qalan milyonçu Kris Qardner kimi daha varlı olsunlar.",
         author: "Sevinc Quliyeva",
