@@ -39,7 +39,7 @@ function Detail() {
     const storedUser = localStorage.getItem("googleUser");
 
     if (!storedUser) {
-      e.preventDefault(); // 🔥 Link yönləndirməsini dayandırır
+      e.preventDefault();
       setSupportError("Siz sayta daxil olmamısınız!");
       return;
     }

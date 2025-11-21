@@ -7,7 +7,6 @@ function Contact() {
   return (
     <section className="contact">
       <div className="contact__card">
-        {/* Sol tərəf */}
         <div className="contact__left">
           <h1 className="contact__title">Bizimlə əlaqə</h1>
           <p className="contact__lead">
@@ -60,12 +59,9 @@ function Contact() {
             </div>
           </div>
 
-          <div className="contact__socials" aria-hidden="true">
-            {/* Əgər istəsən bu hissəyə sosial ikonlar əlavə edə bilərəm */}
-          </div>
+          <div className="contact__socials" aria-hidden="true"></div>
         </div>
 
-        {/* Sağ tərəf — xəritə */}
         <div className="contact__right">
           <iframe
             className="contact__map"

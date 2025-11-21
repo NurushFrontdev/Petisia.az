@@ -26,9 +26,6 @@ const CompanyStart = () => {
   const [userProfile, setUserProfile] = useState(null);
   const [errors, setErrors] = useState({});
 
-  // =========================
-  // localStorage-dan formData yüklə
-  // =========================
   useEffect(() => {
     const storedUser =
       localStorage.getItem("user") || localStorage.getItem("googleUser");
@@ -59,9 +56,6 @@ const CompanyStart = () => {
     const updatedData = { ...formData, [name]: value };
     setFormData(updatedData);
 
-    // =========================
-    // localStorage-a yaz
-    // =========================
     localStorage.setItem("companyFormData", JSON.stringify(updatedData));
   };
 
@@ -111,9 +105,6 @@ const CompanyStart = () => {
 
     setSubmitted(true);
 
-    // =========================
-    // form uğurla submit olunduqda localStorage-dan sil
-    // =========================
     localStorage.removeItem("companyFormData");
   };
 
@@ -125,7 +116,6 @@ const CompanyStart = () => {
     <div className="petition-container">
       {!submitted ? (
         <form className="petition-form" onSubmit={handleSubmit}>
-          {/* Sənin mövcud kodun */}
           <h2>Kampanya Başlat</h2>
 
           <label>
