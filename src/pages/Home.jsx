@@ -104,7 +104,7 @@ function Home({ campaigns, setCampaigns }) {
         author: "Xədicə Əliyeva",
         authorPhoto: null,
         country: "Azərbaycan",
-        supporters: 4329,
+        supporters: 4323,
         goalSupporters: 6800,
         category: "Təhsil və elm",
       },
