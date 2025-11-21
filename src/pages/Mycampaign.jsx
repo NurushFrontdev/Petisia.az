@@ -188,7 +188,7 @@ export default function Mycampaign() {
                 <>
                   <p className="mycampaign__text">{messages.imzalanan}</p>
                   <Link to={links.imzalanan} className="mycampaign__search-btn">
-                    Kampaniya arayın
+                    Kampaniya axtarın
                   </Link>
                 </>
               )}

@@ -258,7 +258,7 @@ const CompanyStart = () => {
           </label>
 
           <label>
-            Kampanyanın uğurlu olması üçün lazım olan insan sayı
+            Kampanyanın hədəflənmiş imza sayı
             <input
               type="number"
               name="goalSupporters"
